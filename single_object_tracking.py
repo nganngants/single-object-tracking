@@ -31,7 +31,7 @@ def tracking (data_dir):
     gt_annotations = [tuple(map(int, line.strip().split(','))) for line in f]
   (_, gt_x, gt_y, gt_w, gt_h, is_lost) = gt_annotations[0]
   # Initialize the tracker
-  tracker = cv2.legacy.TrackerCSRT_create()
+  tracker = cv2.legacy.TrackerKCF_create()
   tracker.init(frame, (gt_x, gt_y, gt_w, gt_h))
 
   # Initialize variables for tracking evaluation
@@ -71,7 +71,7 @@ def tracking (data_dir):
 
       # Exit if ESC pressed
       if cv2.waitKey(1) == 27:
-          break
+          return -1, -1
 
   # Compute the tracking evaluation metrics
   avg_iou = iou_sum / (num_frames - 1)
@@ -79,10 +79,23 @@ def tracking (data_dir):
   # Release resources
   cv2.destroyAllWindows()
 
-  return avg_iou
+  return num_frames, avg_iou
 
 dir_datasets = './TinyTLP'
 all_data = os.listdir(dir_datasets)
+sum_frames = 0
+sum_iou = 0.0
 for data in all_data:
    path = os.path.join(dir_datasets, data)
-   print(tracking(path))
+   num, iou = tracking(path)
+   if iou == -1:
+      break
+   sum_iou += iou * num
+   sum_frames += num
+   print(data, iou)
+
+print(sum_iou / sum_frames)
+"""
+  to create requirements.txt, run:
+  py -m pipreqs.pipreqs .
+"""
