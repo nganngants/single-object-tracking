@@ -118,7 +118,7 @@ def runTLPAtrr():
     'sv': 0
   }
   sum_frames = {
-     'bc': 0,
+    'bc': 0,
     'fm': 0,
     'iv': 0,
     'occ': 0,
@@ -138,7 +138,7 @@ def runTLPAtrr():
     sum_frames[attr] += num
     print(f'%s %.2f' % (data, rate * 100))
 
-  for attr, succ in sum_succ:
+  for attr, succ in sum_succ.items():
      frames = sum_frames[attr]
      rate = succ / frames * 100
      print(f'%s %.2f' % (attributes[attr], rate))
