@@ -10,6 +10,8 @@ def tracking (data_dir, show = False, threshold = 0.5):
 
   image_dir = os.path.join(data_dir, 'img')
   image_files = sorted(os.listdir(image_dir))
+  if len(image_files) == 0:
+     print(f'%s does not have any image')
 
   # Read the first image
   frame = cv2.imread(os.path.join(image_dir, image_files[0]))
@@ -24,7 +26,6 @@ def tracking (data_dir, show = False, threshold = 0.5):
   tracker.init(frame, (gt_x, gt_y, gt_w, gt_h))
 
   num_frames = len(image_files)
-  iou_sum = 0
   ground_truths = []
   predictions = []
 

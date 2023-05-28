@@ -1,13 +1,7 @@
 
-import os
 
-import torch
-from torchvision import ops
-import numpy as np
-import cv2
 from eval import evalTinyTLP, evalTLPAtrr
 from demo import demo
-from tracker import tracking
 import argparse
 
 parser = argparse.ArgumentParser()

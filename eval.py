@@ -33,7 +33,6 @@ def evalTLPAtrr(show=False):
   for data in all_data:
     path = os.path.join(dir_datasets, data)
     attr = data.split('_')[0]
-
     num, num_succ, rate = tracking(path, show)
     if num == -1:
         exit()
@@ -45,12 +44,14 @@ def evalTLPAtrr(show=False):
   sum_frames = 0
   for attr, succ in cnt_succ.items():
      frames = cnt_frames[attr]
+     if frames == 0:
+        continue
      rate = succ / frames * 100
      print(f'%s %.2f' % (attributes[attr], rate))
      sum_succ += succ
      sum_frames += frames
   succ_rate = sum_succ / sum_frames
-  print(f'Success rate on TinyTLP: %.2f' % (succ_rate * 100))
+  print(f'Success rate on TLPAtrr: %.2f' % (succ_rate * 100))
 
 def evalTinyTLP(show=False):
   dir_datasets = './TinyTLP'
