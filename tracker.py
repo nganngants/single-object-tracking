@@ -13,7 +13,6 @@ def tracking (data_dir, show = False, threshold = 0.5):
   if len(image_files) == 0:
      print(f'%s does not have any image')
 
-  # Read the first image
   frame = cv2.imread(os.path.join(image_dir, image_files[0]))
   # Parse the ground truth annotation for the first frame
   gt_file = os.path.join(data_dir, 'groundtruth_rect.txt')
@@ -21,7 +20,6 @@ def tracking (data_dir, show = False, threshold = 0.5):
     gt_annotations = [tuple(map(int, line.strip().split(','))) for line in f]
   (_, gt_x, gt_y, gt_w, gt_h, is_lost) = gt_annotations[0]
 
-  # Initialize the tracker
   tracker = cv2.TrackerCSRT_create()
   tracker.init(frame, (gt_x, gt_y, gt_w, gt_h))
 
@@ -29,18 +27,12 @@ def tracking (data_dir, show = False, threshold = 0.5):
   ground_truths = []
   predictions = []
 
-  # Loop through each image in the sequence
   for i in range(1, num_frames):
-      # Read the image
       frame = cv2.imread(os.path.join(image_dir, image_files[i]))
 
-      # Update the tracker
       success, bbox = tracker.update(frame)
-
-      # Parse the ground truth annotation
       _, gt_x, gt_y, gt_w, gt_h, is_lost = gt_annotations[i]
 
-      # Compute the intersection over union (IoU) between the predicted and ground truth bounding boxes
       if success:
           x, y, w, h = [int(k) for k in bbox]
           pred_box = [x, y, x + w, y + h]
@@ -60,12 +52,10 @@ def tracking (data_dir, show = False, threshold = 0.5):
           ground_truths.append(None)
     
       if show:
-      # Draw bounding box and ground truth annotation
         if success:
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
         cv2.rectangle(frame, (gt_x, gt_y), (gt_x + gt_w, gt_y + gt_h), (0, 0, 255), 2)
 
-        #Display the image
         cv2.imshow('Frame', frame)
 
       # Exit if ESC pressed
@@ -81,7 +71,6 @@ def tracking (data_dir, show = False, threshold = 0.5):
 def tracking_demo(video_file_path):
 
     cap = cv2.VideoCapture(video_file_path)
-    # Create a window and set the mouse callback function
     cv2.namedWindow("Tracking")
     success, img = cap.read()
     bbox = cv2.selectROI("Tracking", img, False)

@@ -17,7 +17,3 @@ if __name__ == '__main__':
     evalTinyTLP(args.show)
   if data == 'tlp-attr':
     evalTLPAtrr(args.show)
-"""
-  to create requirements.txt, run:
-  py -m pipreqs.pipreqs .
-"""
