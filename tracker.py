@@ -1,8 +1,6 @@
 import os
 
 import torch
-from torchvision import ops
-import numpy as np
 import cv2
 from metric import success_rate
 

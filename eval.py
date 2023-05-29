@@ -1,5 +1,4 @@
 import os
-import cv2
 from tracker import tracking
 
 def evalTLPAtrr(dir_dataset, show=False):

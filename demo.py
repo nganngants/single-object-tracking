@@ -1,9 +1,5 @@
 from tkinter import filedialog
 import tkinter
-import torch
-from torchvision import ops
-import numpy as np
-import cv2
 from tracker import tracking_demo
 
 
