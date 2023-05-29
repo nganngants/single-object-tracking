@@ -8,6 +8,8 @@
 
 This is our final project for CS231 - Introduction to Computer Vision course
 
+## Overview
+
 ## Members
 
 |**Student ID**|  **Full Name**  |       **Email**      |
@@ -30,14 +32,16 @@ This is our final project for CS231 - Introduction to Computer Vision course
     ```
    git clone https://github.com/nganngants/single-object-tracking.git
     ```
-2. Download the dataset [here](https://amoudgl.github.io/tlp/). Locate the dataset folder in the same directory of the source code or change the `dir_datasets` in `single_object_tracking.py`
+2. Download the dataset [here](https://amoudgl.github.io/tlp/) and change the datasets path in `single_object_tracking.py`
 3. Install the python dependency packages.
     ```
     pip install -r requirements.txt
     ```
 
 ### Usage
-Run the code:
+* Run the code for demo on any video choosen from your computer :
   ```
-  py single_object_tracking.py
+  py single_object_tracking.py -eval demo
   ```
+
+# Acknowledgment
