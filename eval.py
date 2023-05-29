@@ -2,7 +2,7 @@ import os
 import cv2
 from tracker import tracking
 
-def evalTLPAtrr(show=False):
+def evalTLPAtrr(dir_dataset, show=False):
 
   attributes = {
     'bc': 'background clutter',
@@ -28,10 +28,9 @@ def evalTLPAtrr(show=False):
     'ov': 0,  
     'sv': 0
   }
-  dir_datasets = './TLPAttr'
-  all_data = os.listdir(dir_datasets)
+  all_data = os.listdir(dir_dataset)
   for data in all_data:
-    path = os.path.join(dir_datasets, data)
+    path = os.path.join(dir_dataset, data)
     attr = data.split('_')[0]
     num, num_succ, rate = tracking(path, show)
     if num == -1:
@@ -53,13 +52,13 @@ def evalTLPAtrr(show=False):
   succ_rate = sum_succ / sum_frames
   print(f'Success rate on TLPAtrr: %.2f' % (succ_rate * 100))
 
-def evalTinyTLP(show=False):
-  dir_datasets = './TinyTLP'
-  all_data = os.listdir(dir_datasets)
+def evalTLP(dir_dataset, show=False):
+  all_data = os.listdir(dir_dataset)
+  #all_data = ['Badminton1', 'Badminton2']
   sum_frames = 0
   sum_succ = 0
   for data in all_data:
-    path = os.path.join(dir_datasets, data)
+    path = os.path.join(dir_dataset, data)
     num, num_suc, rate = tracking(path, show)
     if num == -1:
         exit()
