@@ -19,7 +19,7 @@ def success_rate (ground_truths, predictions, threshold = 0.5):
       successful_frames += (ground_truths == None and predictions[i] == None)
       continue
     iou = compute_iou(ground_truths[i], predictions[i])
-    if (iou >= threshold):
+    if (iou > threshold):
        successful_frames += 1
   
   return successful_frames, successful_frames / total_frames
