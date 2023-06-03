@@ -1,6 +1,5 @@
 import os
 
-import torch
 import cv2
 from metric import success_rate
 
@@ -27,32 +26,31 @@ def tracking (data_dir, show = False, threshold = 0.5):
 
   for i in range(1, num_frames):
       frame = cv2.imread(os.path.join(image_dir, image_files[i]))
+      _, gt_x, gt_y, gt_w, gt_h, gt_is_lost = gt_annotations[i]
 
       success, bbox = tracker.update(frame)
-      _, gt_x, gt_y, gt_w, gt_h, is_lost = gt_annotations[i]
-
       if success:
           x, y, w, h = [int(k) for k in bbox]
           pred_box = [x, y, x + w, y + h]
           predictions.append(pred_box)
-          if is_lost:
+          if gt_is_lost == 1:
             ground_truths.append(None)
-            continue
-          gt_box = [gt_x, gt_y, gt_x + gt_w, gt_y + gt_h]
-          
-          ground_truths.append(gt_box)
+          else:
+            gt_box = [gt_x, gt_y, gt_x + gt_w, gt_y + gt_h]
+            
+            ground_truths.append(gt_box)
       else:
         predictions.append(None)
-        if not is_lost:
+        if gt_is_lost == 0:
           gt_box = [gt_x, gt_y, gt_x + gt_w, gt_y + gt_h]
           ground_truths.append(gt_box)
         else:
           ground_truths.append(None)
-    
       if show:
-        if success:
+        if success and x >= 0 and y >= 0:
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
-        cv2.rectangle(frame, (gt_x, gt_y), (gt_x + gt_w, gt_y + gt_h), (0, 0, 255), 2)
+        if gt_is_lost == 0:
+           cv2.rectangle(frame, (gt_x, gt_y), (gt_x + gt_w, gt_y + gt_h), (0, 0, 255), 2)
 
         cv2.imshow('Frame', frame)
 
