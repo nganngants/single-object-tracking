@@ -10,6 +10,10 @@ This is our final project for CS231 - Introduction to Computer Vision course
 
 ## Overview
 
+* This project experiments with the CSRT tracker from OpenCV on the TLP dataset (including both TinyTLP and TLPAttr) and compares its performance with other trackers.
+* Additionally, the project allows for video demos on any selected video from the computer.
+* Some demo results on the TLPAttr dataset can be viewed [here](https://youtu.be/YJgxtjXVfV4)
+
 ## Members
 
 |**Student ID**|  **Full Name**  |       **Email**      |
@@ -39,9 +43,14 @@ This is our final project for CS231 - Introduction to Computer Vision course
     ```
 
 ### Usage
-* Run the code for demo on any video choosen from your computer :
+Terminal command:
   ```
-  py single_object_tracking.py -eval demo
+  py single_object_tracking.py -eval [data] -show [flag]
   ```
+  
+  * To evaluate the tracker on TLP, TinyTLP or TLPAttr dataset, replace the `[data]` with `tlp`, `tiny-tlp` or `tlp-attr` respectively. Replace `[flag]` with `True` if you want to display the videos during evaluation process; otherwise, use `False`.
+  * To demo on any video, replace the `[data]` with `demo`. No need to specify the `-show` argument.
 
 # Acknowledgment
+
+I would like to thank the creators of the CSRT tracker from OpenCV for their valuable tool and the creators of the TLP dataset for providing the necessary data for comprehensive evaluations and comparisons.
