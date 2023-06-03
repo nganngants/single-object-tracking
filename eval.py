@@ -53,7 +53,6 @@ def evalTLPAtrr(dir_dataset, show=False):
 
 def evalTLP(dir_dataset, show=False):
   all_data = os.listdir(dir_dataset)
-  #all_data = ['Badminton1', 'Badminton2']
   sum_frames = 0
   sum_succ = 0
   for data in all_data:
@@ -66,4 +65,4 @@ def evalTLP(dir_dataset, show=False):
     print(f'%s %.2f' % (data, rate * 100))
 
   succ_rate = sum_succ / sum_frames
-  print(f'Success rate on TinyTLP: %.2f' % (succ_rate * 100))
+  print(f'Success rate on %s: %.2f' % (dir_dataset.split('/')[-1], succ_rate * 100))

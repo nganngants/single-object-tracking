@@ -14,7 +14,6 @@ if __name__ == '__main__':
   dir_TLP = '../TLP'
   dir_tinyTLP = './TinyTLP'
   dir_TLPAttr = './TLPAttr'
-
   if data == 'demo':
     demo()
   elif data == 'tiny-tlp':
